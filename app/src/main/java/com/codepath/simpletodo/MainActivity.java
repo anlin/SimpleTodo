@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.codepath.simpletodo.adapters.TodoAdapter;
 import com.codepath.simpletodo.database.TodoDatabaseHelper;
 import com.codepath.simpletodo.model.TodoList;
 
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<TodoList> items;
-    ArrayAdapter<TodoList> itemsAdaper;
+    TodoAdapter itemsAdaper;
     ListView lvItems;
 
     TodoDatabaseHelper helper;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         lvItems = (ListView) findViewById(R.id.lvItems);
         items = new ArrayList<TodoList>();
         readItems();
-        itemsAdaper = new ArrayAdapter<TodoList>(this, android.R.layout.simple_list_item_1, items);
+        itemsAdaper = new TodoAdapter(this, items);
         lvItems.setAdapter(itemsAdaper);
         setupListViewListner();
     }

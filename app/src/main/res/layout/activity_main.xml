@@ -20,6 +20,7 @@
         android:layout_marginRight="17dp"
         android:layout_marginEnd="17dp"
         android:layout_marginBottom="19dp"
+        android:textColor="@color/colorPrimary"
         android:id="@+id/btnAddItem"
         android:onClick="onAddItem"/>
 
