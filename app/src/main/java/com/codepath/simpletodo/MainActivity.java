@@ -10,7 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+<<<<<<< HEAD
 import com.codepath.simpletodo.adapters.TodoAdapter;
+=======
+import com.codepath.simpletodo.adapter.TodoAdapter;
+>>>>>>> origin/master
 import com.codepath.simpletodo.database.TodoDatabaseHelper;
 import com.codepath.simpletodo.model.TodoList;
 
