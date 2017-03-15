@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
@@ -17,19 +16,3 @@
         android:paddingTop="10dp"
         android:id="@+id/tvTodoItem" />
 </RelativeLayout>
-=======
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="14sp"
-        android:id="@+id/tvTodoItem"
-        android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-</LinearLayout>
->>>>>>> origin/master
