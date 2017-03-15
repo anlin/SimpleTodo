@@ -1,5 +1,6 @@
 package com.codepath.simpletodo;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -19,14 +21,20 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+import static android.R.attr.startYear;
+
+public class MainActivity extends AppCompatActivity{
 
     ArrayList<TodoList> items;
     TodoAdapter itemsAdaper;
     ListView lvItems;
 
     TodoDatabaseHelper helper;
+
+    Date selectedDate;
 
     private static final int RESULT_CODE = 20;
 
@@ -48,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         TodoList todoList = new TodoList();
         todoList.todoItem = etNewItem.getText().toString();
+        todoList.dueDate = selectedDate;
         itemsAdaper.add(todoList);
         etNewItem.setText("");
         helper.addItem(todoList);
@@ -92,4 +101,18 @@ public class MainActivity extends AppCompatActivity {
     private void readItems(){
             items = (ArrayList<TodoList>) helper.getAllTodoItems();
     }
+
+    public void onDueDateClick(View view) {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSetListener, 2017, 03, 15);
+        datePickerDialog.show();
+    }
+
+    DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, dayOfMonth);
+            selectedDate = calendar.getTime();
+        }
+    };
 }

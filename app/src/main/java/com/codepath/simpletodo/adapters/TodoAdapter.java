@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.codepath.simpletodo.R;
 import com.codepath.simpletodo.model.TodoList;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static android.R.attr.resource;
@@ -34,6 +35,10 @@ public class TodoAdapter extends ArrayAdapter<TodoList> {
                     .inflate(R.layout.item_todo, parent, false);
         }
         TextView tvTodo = (TextView) convertView.findViewById(R.id.tvTodoItem);
+        TextView tvDueDate = (TextView) convertView.findViewById(R.id.tvDueDate);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        tvDueDate.setText(simpleDateFormat.format(todoList.dueDate));
         tvTodo.setText(todoList.todoItem);
         return convertView;
     }

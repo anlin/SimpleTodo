@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.codepath.simpletodo.model.TodoList;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     // Table Columns
     private static final String KEY_TODO_ID = "id";
     private static final String KEY_TODO_ITEM = "item";
+    private static final String KEY_TODO_DUE = "due";
 
     // Singleton to create helper instance
     public static synchronized TodoDatabaseHelper getInstance(Context context){
@@ -50,7 +52,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TODO_TABLE = "CREATE TABLE " + TABLE_TODO + "(" +
                 KEY_TODO_ID + " INTEGER PRIMARY KEY, " +
-                KEY_TODO_ITEM + " TEXT)";
+                KEY_TODO_ITEM + " TEXT, " + KEY_TODO_DUE + " DATE)";
         db.execSQL(CREATE_TODO_TABLE);
     }
 
@@ -67,8 +69,11 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         sqLiteDatabase.beginTransaction();
         try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sdf.format(todoList.dueDate);
             ContentValues contentValues = new ContentValues();
             contentValues.put(KEY_TODO_ITEM, todoList.todoItem);
+            contentValues.put(KEY_TODO_DUE, date);
 
             sqLiteDatabase.insertOrThrow(TABLE_TODO, null, contentValues);
             sqLiteDatabase.setTransactionSuccessful();
@@ -91,9 +96,12 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         try{
             if(cursor.moveToFirst()){
                 do{
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     TodoList newTodoList = new TodoList();
                     newTodoList.todoItem = cursor.getString(cursor.getColumnIndex(KEY_TODO_ITEM));
                     newTodoList.id = cursor.getLong(cursor.getColumnIndex(KEY_TODO_ID));
+                    String date = cursor.getString(cursor.getColumnIndex(KEY_TODO_DUE));
+                    newTodoList.dueDate = sdf.parse(date);
                     todoList.add(newTodoList);
                 }while (cursor.moveToNext());
             }
